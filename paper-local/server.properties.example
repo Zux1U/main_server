@@ -15,7 +15,7 @@ generate-structures=false
 max-players=1000
 max-world-size=29999984
 
-gamemode=survival
+gamemode=creative
 force-gamemode=true
 difficulty=peaceful
 pvp=true

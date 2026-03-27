@@ -45,6 +45,28 @@ function Resolve-BoolEnv([string]$EnvName) {
   }
 }
 
+function Set-Or-AddServerProperty([string]$Path, [string]$Key, [string]$Value) {
+  $lines = @()
+  if (Test-Path -LiteralPath $Path) {
+    $lines = @(Get-Content -LiteralPath $Path)
+  }
+
+  $updated = $false
+  for ($index = 0; $index -lt $lines.Count; $index += 1) {
+    if ($lines[$index] -match "^\s*$([Regex]::Escape($Key))\s*=") {
+      $lines[$index] = "$Key=$Value"
+      $updated = $true
+      break
+    }
+  }
+
+  if (-not $updated) {
+    $lines += "$Key=$Value"
+  }
+
+  Set-Content -LiteralPath $Path -Value $lines -Encoding UTF8
+}
+
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $runtimeDir = Join-Path $scriptDir "runtime"
 $paperJarPath = Join-Path $runtimeDir "paper.jar"
@@ -69,6 +91,14 @@ if (-not (Test-Path -LiteralPath $serverProps)) {
   }
   Copy-Item -LiteralPath $serverPropsExample -Destination $serverProps
   Info "Created runtime/server.properties from template."
+}
+
+# Keep default local UX consistent across fresh and existing runtime folders.
+try {
+  Set-Or-AddServerProperty -Path $serverProps -Key "gamemode" -Value "creative"
+  Set-Or-AddServerProperty -Path $serverProps -Key "force-gamemode" -Value "true"
+} catch {
+  Fail "Failed to update runtime/server.properties defaults (gamemode/force-gamemode)."
 }
 
 $eulaExample = Join-Path $scriptDir "eula.txt.example"

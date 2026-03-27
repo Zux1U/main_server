@@ -99,6 +99,7 @@ Supported env interface:
 - `Java too old`: Paper `1.21.11` requires Java `21+`.
 - `paper.jar already exists` but wrong version/build: set `PAPER_FORCE_DOWNLOAD=1` and run `npm run setup:paper`.
 - `CMD vs PowerShell env`: in `cmd.exe` use `set PAPER_FORCE_DOWNLOAD=1`, in PowerShell use `$env:PAPER_FORCE_DOWNLOAD="1"`.
+- `Arena/spawn missing on clean world`: start controller (`npm start`) and run `Prepare` once; arena base is rebuilt during prepare.
 - Auth mismatch: keep `online-mode=false` for local offline bot accounts.
 
 ## Commands
@@ -108,6 +109,26 @@ npm run start:paper
 npm start
 npm run check
 ```
+
+## Windows CMD Pre-Step (Java 21)
+If you run from `cmd.exe`, do this once before first start:
+
+```cmd
+winget install --id EclipseAdoptium.Temurin.21.JDK -e
+```
+
+Then reopen `cmd.exe` and run:
+
+```cmd
+for /d %D in ("C:\Program Files\Eclipse Adoptium\jdk-21*") do set "JDKDIR=%D"
+set "PAPER_JAVA_EXE=%JDKDIR%\bin\java.exe"
+set PAPER_FORCE_DOWNLOAD=1
+"%PAPER_JAVA_EXE%" -version
+npm run setup:paper
+npm run start:paper
+```
+
+Note: in `cmd.exe` use `set VAR=...`; `$env:VAR=...` is PowerShell-only.
 
 ## Docs
 - [Local setup](docs/LOCAL_SETUP.md)

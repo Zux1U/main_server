@@ -35,6 +35,18 @@ cmd /c paper-local\start.bat
 
 Local Paper template for `mc-bot-colony`.
 
+### Windows cmd.exe prerequisite (Java 21)
+Install Java 21:
+```cmd
+winget install --id EclipseAdoptium.Temurin.21.JDK -e
+```
+
+Reopen `cmd.exe`, then:
+```cmd
+for /d %D in ("C:\Program Files\Eclipse Adoptium\jdk-21*") do set "JDKDIR=%D"
+set "PAPER_JAVA_EXE=%JDKDIR%\bin\java.exe"
+```
+
 ### Commands
 ```powershell
 npm run setup:paper

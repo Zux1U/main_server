@@ -102,6 +102,9 @@
         "worldborder center 0 0",
         "worldborder set 59999968",
         "difficulty peaceful",
+        "fill -225 -61 -225 225 -61 225 smooth_stone replace",
+        "fill -225 -60 -225 225 -56 225 air replace",
+        "fill -226 -60 -226 226 -58 226 stone_bricks hollow",
         "setworldspawn 0 -60 120",
         "tag @a remove arena_participant",
         "kill @e[type=!minecraft:player]"

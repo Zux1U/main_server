@@ -46,6 +46,18 @@ npm start
 
 ## EN
 
+### 0) Windows cmd.exe prerequisite (Java 21)
+If you run from `cmd.exe`, install Java 21 first:
+```cmd
+winget install --id EclipseAdoptium.Temurin.21.JDK -e
+```
+
+Reopen `cmd.exe`, then set Java path:
+```cmd
+for /d %D in ("C:\Program Files\Eclipse Adoptium\jdk-21*") do set "JDKDIR=%D"
+set "PAPER_JAVA_EXE=%JDKDIR%\bin\java.exe"
+```
+
 ### 1) Install dependencies
 ```powershell
 npm install
