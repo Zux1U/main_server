@@ -46,6 +46,8 @@ Latest stabilization update (`2026-03-27`):
 - stop-phase defaults now include per-bot/per-human spawnpoint+teleport back to holding, including previously eliminated users.
 - repository made publish-ready for GitHub: onboarding docs (`README`, `LOCAL_SETUP`), env template, and `.gitignore`.
 - added in-repo `paper-local` template (server.properties/eula/start script) so third parties can run both Paper and controller from one clone.
+- implemented Paper bootstrap automation (`paper-local/setup-paper.ps1`) with auto-download, template materialization, and explicit failure diagnostics.
+- aligned docs to RU+EN quick-start with two-terminal flow and troubleshooting.
 
 ## Stage A0 checklist
 

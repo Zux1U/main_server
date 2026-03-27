@@ -1,48 +1,57 @@
-# paper-local template
+# paper-local
 
-Минимальный шаблон локального Paper-сервера для `mc-bot-colony`.
+## RU
 
-## Что нужно сделать
+Локальный шаблон Paper для `mc-bot-colony`.
 
-1. Положи Paper `1.21.11` jar в:
-
-`paper-local/runtime/paper.jar`
-
-2. Запусти:
-
+### Команды
 ```powershell
-cd paper-local
-.\start.bat
+npm run setup:paper
+npm run start:paper
 ```
 
-`start.bat` автоматически создаст в `runtime/`:
-
-- `server.properties` (из `server.properties.example`)
-- `eula.txt` (из `eula.txt.example`)
-
-## Важные параметры
-
-Шаблон уже синхронизирован с дефолтами `mc-bot-colony`:
-
-- `server-port=25566`
-- `online-mode=false`
-- `enable-rcon=true`
-- `rcon.port=25575`
-- `rcon.password=arena-local-pass`
-
-## Память
-
-Можно переопределить RAM перед запуском:
-
+Или напрямую:
 ```powershell
-$env:PAPER_MIN_RAM="4G"
-$env:PAPER_MAX_RAM="6G"
-.\start.bat
+powershell -NoProfile -ExecutionPolicy Bypass -File paper-local\setup-paper.ps1
+cmd /c paper-local\start.bat
 ```
 
-Также можно задать кастомный Java бинарник:
+### Что делает setup
+- создаёт `paper-local/runtime/`
+- создаёт `runtime/server.properties` из `server.properties.example`
+- создаёт `runtime/eula.txt` из `eula.txt.example`
+- скачивает `paper.jar` в `runtime/paper.jar`, если файла нет
 
+### Переменные
+- `PAPER_VERSION` (default: `1.21.11`)
+- `PAPER_BUILD` (optional)
+- `PAPER_MIN_RAM`, `PAPER_MAX_RAM`
+- `PAPER_JAVA_EXE`
+
+## EN
+
+Local Paper template for `mc-bot-colony`.
+
+### Commands
 ```powershell
-$env:PAPER_JAVA_EXE="C:\Path\To\java.exe"
-.\start.bat
+npm run setup:paper
+npm run start:paper
 ```
+
+Or directly:
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File paper-local\setup-paper.ps1
+cmd /c paper-local\start.bat
+```
+
+### What setup does
+- creates `paper-local/runtime/`
+- creates `runtime/server.properties` from `server.properties.example`
+- creates `runtime/eula.txt` from `eula.txt.example`
+- downloads `paper.jar` to `runtime/paper.jar` if missing
+
+### Environment variables
+- `PAPER_VERSION` (default: `1.21.11`)
+- `PAPER_BUILD` (optional)
+- `PAPER_MIN_RAM`, `PAPER_MAX_RAM`
+- `PAPER_JAVA_EXE`

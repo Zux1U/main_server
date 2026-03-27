@@ -1,74 +1,83 @@
-# Local Setup
+# Local Setup / Локальный запуск
 
-## Prerequisites
+## RU
 
-- Node.js `18+` (recommended `20 LTS`)
-- Java `21` (for Paper `1.21.11`)
-- Local Minecraft server (Paper) with RCON enabled
-
-## 1) Prepare Paper Server
-
-Recommended: use the built-in template from this repository:
-
+### 1) Установи зависимости
 ```powershell
-cd paper-local
-.\start.bat
-```
-
-Put Paper `1.21.11` jar into:
-
-- `paper-local/runtime/paper.jar`
-
-Template writes `server.properties` with required values:
-
-- `server-port=25566`
-- `online-mode=false` (for offline bot usernames)
-- `enable-rcon=true`
-- `rcon.port=25575`
-- `rcon.password=arena-local-pass`
-
-It also writes `eula.txt` (`eula=true`).
-
-Start Paper and keep it running.
-
-## 2) Install This Project
-
-```powershell
-cd mc-bot-colony
 npm install
 ```
 
-## 3) Run Bot Controller
+### 2) Подними Paper (терминал A)
+```powershell
+npm run setup:paper
+npm run start:paper
+```
 
+Что делает bootstrap:
+- скачивает Paper `1.21.11` (или версию из `PAPER_VERSION`) в `paper-local/runtime/paper.jar`
+- создаёт `runtime/server.properties` и `runtime/eula.txt` из шаблонов
+
+### 3) Подними контроллер (терминал B)
 ```powershell
 npm start
 ```
 
-Default web panel:
+### 4) Запусти матч в web UI
+- URL: `http://127.0.0.1:3210`
+- Кнопки: `Start Workers` -> `Prepare` -> `Start`
 
-- `http://127.0.0.1:3210`
-
-## 4) Match Flow
-
-1. Open web panel.
-2. Set desired bot count.
-3. Click `Start Workers`.
-4. Click `Prepare`.
-5. Click `Start` or `Launch PvP (auto)`.
-
-## 5) Useful Env Overrides
-
-PowerShell example:
+### Полезные переменные
+```powershell
+$env:PAPER_VERSION="1.21.11"
+$env:PAPER_BUILD=""
+$env:PAPER_MIN_RAM="4G"
+$env:PAPER_MAX_RAM="6G"
+# $env:PAPER_JAVA_EXE="C:\Path\To\java.exe"
+```
 
 ```powershell
-$env:MCB_BOT_COUNT="30"
-$env:MCB_BOT_SAFE_SCALE_LIMIT="80"
-$env:MCB_RCON_PASSWORD="arena-local-pass"
+$env:MCB_BOT_COUNT="80"
+$env:MCB_BOT_SAFE_SCALE_LIMIT="120"
 npm start
 ```
 
-## 6) Stability Notes
+## EN
 
-- If you request too many bots for your machine, Node workers can crash with `Zone Allocation failed`.
-- The controller now applies a safety cap (`bots.safeScaleLimit` and dynamic host cap).
-- Increase load gradually: `40 -> 60 -> 80 -> 100`.
+### 1) Install dependencies
+```powershell
+npm install
+```
+
+### 2) Start Paper (terminal A)
+```powershell
+npm run setup:paper
+npm run start:paper
+```
+
+Bootstrap behavior:
+- downloads Paper `1.21.11` (or `PAPER_VERSION`) into `paper-local/runtime/paper.jar`
+- creates `runtime/server.properties` and `runtime/eula.txt` from templates
+
+### 3) Start controller (terminal B)
+```powershell
+npm start
+```
+
+### 4) Start match in web UI
+- URL: `http://127.0.0.1:3210`
+- Buttons: `Start Workers` -> `Prepare` -> `Start`
+
+### Useful environment variables
+```powershell
+$env:PAPER_VERSION="1.21.11"
+$env:PAPER_BUILD=""
+$env:PAPER_MIN_RAM="4G"
+$env:PAPER_MAX_RAM="6G"
+# $env:PAPER_JAVA_EXE="C:\Path\To\java.exe"
+```
+
+```powershell
+$env:MCB_BOT_COUNT="80"
+$env:MCB_BOT_SAFE_SCALE_LIMIT="120"
+npm start
+```
