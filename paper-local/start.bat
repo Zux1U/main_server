@@ -110,9 +110,9 @@ if defined JAVA_MAJOR_NUM (
 
 cd /d "%RUNTIME_DIR%"
 if defined JAVA_MAJOR_NUM (
-  echo [paper-start] Launching Paper (version %PAPER_VERSION%, java=%JAVA_MAJOR_NUM%, min=%PAPER_MIN_RAM%, max=%PAPER_MAX_RAM%)
+  echo [paper-start] Launching Paper version=%PAPER_VERSION%, java=%JAVA_MAJOR_NUM%, min=%PAPER_MIN_RAM%, max=%PAPER_MAX_RAM%
 ) else (
-  echo [paper-start] Launching Paper (version %PAPER_VERSION%, java=unknown, min=%PAPER_MIN_RAM%, max=%PAPER_MAX_RAM%)
+  echo [paper-start] Launching Paper version=%PAPER_VERSION%, java=unknown, min=%PAPER_MIN_RAM%, max=%PAPER_MAX_RAM%
 )
 "%JAVA_EXE%" ^
   -Xms%PAPER_MIN_RAM% ^
