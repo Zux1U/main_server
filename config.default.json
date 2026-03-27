@@ -92,9 +92,7 @@
         "worldborder set 59999968",
         "gamemode creative @a",
         "difficulty peaceful",
-        "fill -240 -61 -240 240 -61 240 light_gray_concrete replace",
-        "fill -240 -60 -240 240 -48 240 air replace",
-        "fill -242 -60 -242 242 -56 242 stone_bricks hollow",
+        "fill -63 -61 -63 64 -61 64 light_gray_concrete replace",
         "setworldspawn 0 -60 120",
         "kill @e[type=!minecraft:player]"
       ],
@@ -106,9 +104,7 @@
         "worldborder set 59999968",
         "gamemode creative @a",
         "difficulty peaceful",
-        "fill -240 -61 -240 240 -61 240 light_gray_concrete replace",
-        "fill -240 -60 -240 240 -48 240 air replace",
-        "fill -242 -60 -242 242 -56 242 stone_bricks hollow",
+        "fill -63 -61 -63 64 -61 64 light_gray_concrete replace",
         "setworldspawn 0 -60 120",
         "tag @a remove arena_participant",
         "kill @e[type=!minecraft:player]"
