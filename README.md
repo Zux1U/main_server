@@ -98,6 +98,7 @@ Supported env interface:
 - `Java not found`: install Java 21 or set `PAPER_JAVA_EXE`.
 - `Java too old`: Paper `1.21.11` requires Java `21+`.
 - `paper.jar already exists` but wrong version/build: set `PAPER_FORCE_DOWNLOAD=1` and run `npm run setup:paper`.
+- `CMD vs PowerShell env`: in `cmd.exe` use `set PAPER_FORCE_DOWNLOAD=1`, in PowerShell use `$env:PAPER_FORCE_DOWNLOAD="1"`.
 - Auth mismatch: keep `online-mode=false` for local offline bot accounts.
 
 ## Commands

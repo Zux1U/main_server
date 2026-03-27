@@ -57,9 +57,32 @@ if defined PAPER_JAVA_EXE (
   )
 )
 
+set "JAVA_SPEC_VERSION="
 set "JAVA_MAJOR_NUM="
-for /f %%v in ('powershell -NoProfile -ExecutionPolicy Bypass -Command "$j = $env:PAPER_JAVA_EXE; if ([string]::IsNullOrWhiteSpace($j)) { $j = 'java' }; try { $line = (& $j -version 2^>^&1 ^| Select-Object -First 1); if ($line -match '\"([0-9]+)') { $matches[1] } elseif ($line -match 'version\s+([0-9]+)') { $matches[1] } } catch { }"') do (
-  set "JAVA_MAJOR_NUM=%%v"
+set "JAVA_INFO_FILE=%TEMP%\mc-bot-colony-java-%RANDOM%%RANDOM%.txt"
+
+"%JAVA_EXE%" -XshowSettings:properties -version 1>nul 2>"%JAVA_INFO_FILE%"
+for /f "tokens=3" %%v in ('findstr /i /c:"java.specification.version" "%JAVA_INFO_FILE%"') do (
+  set "JAVA_SPEC_VERSION=%%v"
+)
+
+if not defined JAVA_SPEC_VERSION (
+  "%JAVA_EXE%" -version 1>"%JAVA_INFO_FILE%" 2>&1
+  for /f "tokens=3" %%v in ('findstr /i /c:" version " "%JAVA_INFO_FILE%"') do (
+    set "JAVA_SPEC_VERSION=%%~v"
+  )
+)
+
+if exist "%JAVA_INFO_FILE%" del /q "%JAVA_INFO_FILE%" >nul 2>nul
+
+if defined JAVA_SPEC_VERSION (
+  for /f "tokens=1,2 delims=." %%a in ("%JAVA_SPEC_VERSION%") do (
+    if "%%a"=="1" (
+      set "JAVA_MAJOR_NUM=%%b"
+    ) else (
+      set "JAVA_MAJOR_NUM=%%a"
+    )
+  )
 )
 
 if not defined JAVA_MAJOR_NUM (
