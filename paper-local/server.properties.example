@@ -1,0 +1,30 @@
+# mc-bot-colony paper local template
+# Keep these values aligned with config.default.json in this repository.
+
+server-port=25566
+online-mode=false
+
+enable-rcon=true
+rcon.port=25575
+rcon.password=arena-local-pass
+
+level-name=world_arena_flat
+level-type=minecraft\:flat
+generate-structures=false
+
+max-players=1000
+max-world-size=29999984
+
+gamemode=survival
+force-gamemode=true
+difficulty=peaceful
+pvp=true
+allow-flight=true
+
+spawn-animals=false
+spawn-monsters=false
+spawn-npcs=false
+spawn-protection=0
+
+view-distance=6
+simulation-distance=4

@@ -1,0 +1,17 @@
+node_modules/
+logs/
+data/state.json
+
+.env
+.env.local
+config.local.json
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+.DS_Store
+Thumbs.db
+
+paper-local/runtime/*
+!paper-local/runtime/.gitkeep

@@ -1,0 +1,227 @@
+{
+  "server": {
+    "host": "127.0.0.1",
+    "port": 25566,
+    "version": false,
+    "auth": "offline"
+  },
+  "rcon": {
+    "enabled": true,
+    "host": "127.0.0.1",
+    "port": 25575,
+    "password": "arena-local-pass",
+    "timeoutMs": 15000
+  },
+  "bots": {
+    "count": 50,
+    "maxCount": 1000,
+    "safeScaleLimit": 120,
+    "startOnBoot": false,
+    "prefix": "colony",
+    "startIndex": 1,
+    "chatOnSpawn": "",
+    "spawnIntervalMs": 220
+  },
+  "roles": {
+    "enabled": false,
+    "defaultRole": "collector",
+    "builderCount": 0,
+    "collectorWoodGoal": 12
+  },
+  "arena": {
+    "enabled": true,
+    "heartbeatIntervalMs": 4000,
+    "tickIntervalMs": 200,
+    "winnerCheckIntervalMs": 500,
+    "autoRestartRounds": false,
+    "autoPrepareDelayMs": 1500,
+    "autoStartDelayMs": 3000,
+    "launchStartDelayMs": 0,
+    "postRoundDelayMs": 5000,
+    "searchRadius": 128,
+    "attackRange": 4.2,
+    "preferredAttackDistance": 2.8,
+    "chaseDistance": 1.4,
+    "attackCooldownMs": 450,
+    "targetSwitchCooldownMs": 1200,
+    "healThreshold": 6,
+    "retreatToSpawn": false,
+    "retreatWithoutFood": false,
+    "strafeEnabled": true,
+    "strafeSwapIntervalMs": 900,
+    "jumpIntervalMs": 1200,
+    "jumpChance": 0.35,
+    "eliminationDropsEnabled": false,
+    "autoPrepareOnSpawn": false,
+    "loginRecoveryEnabled": true,
+    "targetPlayersOnly": true,
+    "holdingZone": {
+      "x": 0,
+      "y": -60,
+      "z": 120
+    },
+    "stagingSpawn": {
+      "enabled": true,
+      "columns": 20,
+      "spacing": 4,
+      "y": -60
+    },
+    "runtimeDatapack": {
+      "enabled": false,
+      "path": "../mc-paper-local/world_arena_flat/datapacks/mc_arena_runtime",
+      "namespace": "mc_arena_runtime"
+    },
+    "spawnPoints": [],
+    "spawnGrid": {
+      "enabled": true,
+      "centerX": 0.5,
+      "centerZ": 0.5,
+      "y": -60,
+      "columns": 32,
+      "rows": 32,
+      "dynamicByCount": true,
+      "spacing": 12
+    },
+    "serverControl": {
+      "enabled": true,
+      "bootstrapCommands": [
+        "time set day",
+        "weather clear",
+        "worldborder center 0 0",
+        "worldborder set 59999968",
+        "difficulty peaceful",
+        "fill -225 -61 -225 225 -61 225 smooth_stone replace",
+        "fill -225 -60 -225 225 -56 225 air replace",
+        "fill -226 -60 -226 226 -58 226 stone_bricks hollow",
+        "setworldspawn 0 -60 120",
+        "kill @e[type=!minecraft:player]"
+      ],
+      "sharedPrepareCommands": [
+        "time set day",
+        "weather clear",
+        "worldborder center 0 0",
+        "worldborder set 59999968",
+        "difficulty peaceful",
+        "setworldspawn 0 -60 120",
+        "tag @a remove arena_participant",
+        "kill @e[type=!minecraft:player]"
+      ],
+      "sharedParticipantPrepareCommands": [
+        "gamemode survival @a[tag=arena_participant]",
+        "clear @a[tag=arena_participant]",
+        "effect clear @a[tag=arena_participant]",
+        "item replace entity @a[tag=arena_participant] weapon.mainhand with iron_sword",
+        "give @a[tag=arena_participant] cooked_beef 16",
+        "item replace entity @a[tag=arena_participant] armor.head with iron_helmet",
+        "item replace entity @a[tag=arena_participant] armor.chest with iron_chestplate",
+        "item replace entity @a[tag=arena_participant] armor.legs with iron_leggings",
+        "item replace entity @a[tag=arena_participant] armor.feet with iron_boots"
+      ],
+      "perBotPrepareCommands": [
+        "tag {username} add arena_participant",
+        "tp {username} {x} {y} {z} facing 0.5 -60 0.5",
+        "spawnpoint {username} {x} {y} {z}"
+      ],
+      "perBotLoadoutCommands": [],
+      "perHumanPrepareCommands": [
+        "tag {username} add arena_participant",
+        "tp {username} {x} {y} {z} facing 0.5 -60 0.5",
+        "spawnpoint {username} {x} {y} {z}"
+      ],
+      "perHumanLoadoutCommands": [],
+      "sharedStartCommands": [],
+      "perBotStartCommands": [],
+      "perHumanStartCommands": [],
+      "sharedStopCommands": [
+        "tp @a[tag=arena_participant] 0 -60 120",
+        "spawnpoint @a[tag=arena_participant] 0 -60 120",
+        "tag @a remove arena_participant",
+        "tag @a remove arena_bot",
+        "setworldspawn 0 -60 120"
+      ],
+      "perBotStopCommands": [
+        "spawnpoint {username} 0 -60 120",
+        "tp {username} 0 -60 120",
+        "tag {username} remove arena_participant",
+        "tag {username} remove arena_bot"
+      ],
+      "perHumanStopCommands": [
+        "spawnpoint {username} 0 -60 120",
+        "tp {username} 0 -60 120",
+        "tag {username} remove arena_participant",
+        "tag {username} remove arena_bot"
+      ],
+      "perBotEliminatedCommands": [
+        "tag {username} remove arena_participant",
+        "tag {username} remove arena_bot"
+      ]
+    }
+  },
+  "navigation": {
+    "followDistance": 2,
+    "goalReachTimeoutMs": 20000,
+    "stuckTimeoutMs": 5000,
+    "progressMinDistance": 0.35,
+    "maxRecoveryAttempts": 3,
+    "repathCooldownMs": 1200,
+    "allowDig": false,
+    "home": {
+      "enabled": false,
+      "x": 0,
+      "y": -60,
+      "z": 0
+    }
+  },
+  "survival": {
+    "enabled": false,
+    "autoStart": false,
+    "tickIntervalMs": 2500,
+    "foodThreshold": 16,
+    "searchRadius": 32,
+    "collectDropsRadius": 12,
+    "woodGoal": 4,
+    "planksGoal": 16,
+    "sticksGoal": 8,
+    "craftingTableGoal": 1,
+    "woodenPickaxeGoal": 1,
+    "retreatHealthThreshold": 8,
+    "retreatCooldownMs": 10000
+  },
+  "stateMachine": {
+    "enabled": false,
+    "tickIntervalMs": 2000,
+    "idleGraceMs": 4000
+  },
+  "tasks": {
+    "enabled": false,
+    "autoSurvivalTasks": false,
+    "maxQueueSize": 20,
+    "retryFailedTasks": true,
+    "maxRetries": 2,
+    "failureCooldownMs": 3000,
+    "taskTimeoutMs": 45000
+  },
+  "web": {
+    "enabled": true,
+    "host": "127.0.0.1",
+    "port": 3210
+  },
+  "build": {
+    "enabled": false,
+    "placeDelayMs": 120,
+    "flyHeight": 2.5,
+    "defaultTemplate": "big_house"
+  },
+  "reconnect": {
+    "enabled": true,
+    "delayMs": 5000,
+    "maxAttempts": 0
+  },
+  "logging": {
+    "directory": "logs",
+    "level": "info"
+  },
+  "storage": {
+    "file": "data/state.json"
+  }
+}

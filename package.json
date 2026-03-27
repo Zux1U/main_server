@@ -1,0 +1,18 @@
+{
+  "name": "mc-bot-colony",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Autonomous Minecraft bot colony foundation built on mineflayer",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "start:paper": "cmd /c paper-local\\start.bat",
+    "check": "node --check src/index.js && node --check src/botManager.js && node --check src/arenaController.js && node --check src/botRuntime.js && node --check src/webServer.js"
+  },
+  "dependencies": {
+    "mineflayer-collectblock": "latest",
+    "mineflayer": "latest",
+    "mineflayer-pathfinder": "latest",
+    "mineflayer-tool": "latest"
+  }
+}
