@@ -57,52 +57,40 @@ if defined PAPER_JAVA_EXE (
   )
 )
 
-set "JAVA_VERSION="
-for /f "tokens=2 delims=\" %%v in ('"%JAVA_EXE%" -version 2^>^&1 ^| findstr /i "version"') do (
-  set "JAVA_VERSION=%%v"
-  goto :JAVA_VERSION_FOUND
-)
-:JAVA_VERSION_FOUND
-
-if not defined JAVA_VERSION (
-  echo [paper-start] Could not parse Java version from "%JAVA_EXE% -version".
-  echo [paper-start] Please ensure Java 21+ is installed.
-  pause
-  exit /b 1
+set "JAVA_MAJOR_NUM="
+for /f %%v in ('powershell -NoProfile -ExecutionPolicy Bypass -Command "$j = $env:PAPER_JAVA_EXE; if ([string]::IsNullOrWhiteSpace($j)) { $j = 'java' }; try { $line = (& $j -version 2^>^&1 ^| Select-Object -First 1); if ($line -match '\"([0-9]+)') { $matches[1] } elseif ($line -match 'version\s+([0-9]+)') { $matches[1] } } catch { }"') do (
+  set "JAVA_MAJOR_NUM=%%v"
 )
 
-set "JAVA_MAJOR="
-for /f "tokens=1,2 delims=." %%a in ("%JAVA_VERSION%") do (
-  if "%%a"=="1" (
-    set "JAVA_MAJOR=%%b"
-  ) else (
-    set "JAVA_MAJOR=%%a"
+if not defined JAVA_MAJOR_NUM (
+  echo [paper-start] Warning: could not parse Java major version automatically.
+  echo [paper-start] Continuing startup. If Paper fails, install Java 21+ and set PAPER_JAVA_EXE.
+)
+
+if defined JAVA_MAJOR_NUM (
+  set /a JAVA_MAJOR_NUM=%JAVA_MAJOR_NUM% >nul 2>nul
+  if errorlevel 1 (
+    echo [paper-start] Warning: parsed Java major is not numeric: "%JAVA_MAJOR_NUM%".
+    set "JAVA_MAJOR_NUM="
   )
 )
 
-if not defined JAVA_MAJOR (
-  echo [paper-start] Could not extract Java major version from "%JAVA_VERSION%".
-  pause
-  exit /b 1
-)
-
-set /a JAVA_MAJOR_NUM=%JAVA_MAJOR% >nul 2>nul
-if errorlevel 1 (
-  echo [paper-start] Java version value is not numeric: "%JAVA_MAJOR%".
-  pause
-  exit /b 1
-)
-
-if %JAVA_MAJOR_NUM% LSS 21 (
-  echo [paper-start] Java %JAVA_MAJOR_NUM% detected, but Paper 1.21.11 requires Java 21+.
-  echo [paper-start] Install Java 21 and set PAPER_JAVA_EXE, for example:
-  echo [paper-start] set PAPER_JAVA_EXE=C:\Path\To\java.exe
-  pause
-  exit /b 1
+if defined JAVA_MAJOR_NUM (
+  if %JAVA_MAJOR_NUM% LSS 21 (
+    echo [paper-start] Java %JAVA_MAJOR_NUM% detected, but Paper 1.21.11 requires Java 21+.
+    echo [paper-start] Install Java 21 and set PAPER_JAVA_EXE, for example:
+    echo [paper-start] set PAPER_JAVA_EXE=C:\Path\To\java.exe
+    pause
+    exit /b 1
+  )
 )
 
 cd /d "%RUNTIME_DIR%"
-echo [paper-start] Launching Paper (version %PAPER_VERSION%, java=%JAVA_MAJOR_NUM%, min=%PAPER_MIN_RAM%, max=%PAPER_MAX_RAM%)
+if defined JAVA_MAJOR_NUM (
+  echo [paper-start] Launching Paper (version %PAPER_VERSION%, java=%JAVA_MAJOR_NUM%, min=%PAPER_MIN_RAM%, max=%PAPER_MAX_RAM%)
+) else (
+  echo [paper-start] Launching Paper (version %PAPER_VERSION%, java=unknown, min=%PAPER_MIN_RAM%, max=%PAPER_MAX_RAM%)
+)
 "%JAVA_EXE%" ^
   -Xms%PAPER_MIN_RAM% ^
   -Xmx%PAPER_MAX_RAM% ^
