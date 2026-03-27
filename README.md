@@ -33,11 +33,12 @@ npm start
 `setup:paper` и `start:paper` автоматически:
 - создают `paper-local/runtime/server.properties` из шаблона
 - создают `paper-local/runtime/eula.txt` из шаблона
-- скачивают `paper.jar` в `paper-local/runtime/paper.jar`, если его нет
+- скачивают или обновляют `paper.jar` в `paper-local/runtime/paper.jar`, если его нет или версия/билд не совпадает
 
 Поддерживаемые env:
 - `PAPER_VERSION` (default: `1.21.11`)
 - `PAPER_BUILD` (optional; если пусто, берется latest)
+- `PAPER_FORCE_DOWNLOAD` (`1/true/yes` принудительно перекачивает jar)
 - `PAPER_MIN_RAM`, `PAPER_MAX_RAM`
 - `PAPER_JAVA_EXE`
 
@@ -46,6 +47,8 @@ npm start
 - `Port already in use`: проверь порты `25566` (MC) и `3210` (web).
 - `Zone Allocation failed` / OOM: снизь количество ботов, увеличивай нагрузку ступенчато (`40 -> 60 -> 80 -> 100`).
 - `Java not found`: установи Java 21 или укажи `PAPER_JAVA_EXE`.
+- `Java too old`: для Paper `1.21.11` нужна Java `21+`.
+- `paper.jar already exists` но не та версия/билд: поставь `PAPER_FORCE_DOWNLOAD=1` и запусти `npm run setup:paper`.
 - `online-mode`/auth mismatch: для локальных ботов нужен `online-mode=false`.
 
 ## EN
@@ -79,11 +82,12 @@ Then run: `Start Workers` -> `Prepare` -> `Start` (or `Launch PvP (auto)`).
 `setup:paper` and `start:paper` automatically:
 - create `paper-local/runtime/server.properties` from template
 - create `paper-local/runtime/eula.txt` from template
-- download `paper.jar` to `paper-local/runtime/paper.jar` if missing
+- download/refresh `paper.jar` at `paper-local/runtime/paper.jar` when missing or version/build mismatch is detected
 
 Supported env interface:
 - `PAPER_VERSION` (default: `1.21.11`)
 - `PAPER_BUILD` (optional; latest if omitted)
+- `PAPER_FORCE_DOWNLOAD` (`1/true/yes` forces jar refresh)
 - `PAPER_MIN_RAM`, `PAPER_MAX_RAM`
 - `PAPER_JAVA_EXE`
 
@@ -92,6 +96,8 @@ Supported env interface:
 - `Port already in use`: check `25566` (MC) and `3210` (web).
 - `Zone Allocation failed` / OOM: reduce bot count, ramp gradually (`40 -> 60 -> 80 -> 100`).
 - `Java not found`: install Java 21 or set `PAPER_JAVA_EXE`.
+- `Java too old`: Paper `1.21.11` requires Java `21+`.
+- `paper.jar already exists` but wrong version/build: set `PAPER_FORCE_DOWNLOAD=1` and run `npm run setup:paper`.
 - Auth mismatch: keep `online-mode=false` for local offline bot accounts.
 
 ## Commands

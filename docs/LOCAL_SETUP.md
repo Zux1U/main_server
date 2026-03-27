@@ -14,7 +14,7 @@ npm run start:paper
 ```
 
 Что делает bootstrap:
-- скачивает Paper `1.21.11` (или версию из `PAPER_VERSION`) в `paper-local/runtime/paper.jar`
+- скачивает или обновляет Paper `1.21.11` (или версию из `PAPER_VERSION`) в `paper-local/runtime/paper.jar`
 - создаёт `runtime/server.properties` и `runtime/eula.txt` из шаблонов
 
 ### 3) Подними контроллер (терминал B)
@@ -30,10 +30,13 @@ npm start
 ```powershell
 $env:PAPER_VERSION="1.21.11"
 $env:PAPER_BUILD=""
+$env:PAPER_FORCE_DOWNLOAD="1" # опционально: принудительно обновить jar
 $env:PAPER_MIN_RAM="4G"
 $env:PAPER_MAX_RAM="6G"
 # $env:PAPER_JAVA_EXE="C:\Path\To\java.exe"
 ```
+
+Для Paper `1.21.11` нужна Java `21+`.
 
 ```powershell
 $env:MCB_BOT_COUNT="80"
@@ -55,7 +58,7 @@ npm run start:paper
 ```
 
 Bootstrap behavior:
-- downloads Paper `1.21.11` (or `PAPER_VERSION`) into `paper-local/runtime/paper.jar`
+- downloads or refreshes Paper `1.21.11` (or `PAPER_VERSION`) into `paper-local/runtime/paper.jar`
 - creates `runtime/server.properties` and `runtime/eula.txt` from templates
 
 ### 3) Start controller (terminal B)
@@ -71,10 +74,13 @@ npm start
 ```powershell
 $env:PAPER_VERSION="1.21.11"
 $env:PAPER_BUILD=""
+$env:PAPER_FORCE_DOWNLOAD="1" # optional: force jar refresh
 $env:PAPER_MIN_RAM="4G"
 $env:PAPER_MAX_RAM="6G"
 # $env:PAPER_JAVA_EXE="C:\Path\To\java.exe"
 ```
+
+Paper `1.21.11` requires Java `21+`.
 
 ```powershell
 $env:MCB_BOT_COUNT="80"
